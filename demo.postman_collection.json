@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "1ade55b6-64c0-4181-8b90-745d0ec1ca49",
+		"name": "CB Connect 2021",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sg",
+			"item": [
+				{
+					"name": "Node Config (runtime)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{Admin API}}/_config?include_runtime=true",
+							"protocol": "http",
+							"host": [
+								"{{Admin API}}"
+							],
+							"path": [
+								"_config"
+							],
+							"query": [
+								{
+									"key": "include_runtime",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Database",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bucket\": \"beer-sample\",\n    \"num_index_replicas\": 0,\n    \"import_docs\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{Admin API}}/{{db}}/",
+							"protocol": "http",
+							"host": [
+								"{{Admin API}}"
+							],
+							"path": [
+								"{{db}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Database Config",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cache\": {\n        \"rev_cache\": {\n            \"size\": 31337\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{Admin API}}/{{db}}/_config",
+							"protocol": "http",
+							"host": [
+								"{{Admin API}}"
+							],
+							"path": [
+								"{{db}}",
+								"_config"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sg-import",
+			"item": [
+				{
+					"name": "Node Config (runtime)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{Import Admin API}}/_config?include_runtime=true",
+							"protocol": "http",
+							"host": [
+								"{{Import Admin API}}"
+							],
+							"path": [
+								"_config"
+							],
+							"query": [
+								{
+									"key": "include_runtime",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Import Database",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bucket\": \"beer-sample\",\n    \"num_index_replicas\": 0,\n    \"import_docs\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{Import Admin API}}/{{db}}/",
+							"protocol": "http",
+							"host": [
+								"{{Import Admin API}}"
+							],
+							"path": [
+								"{{db}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Database Config",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cache\": {\n        \"rev_cache\": {\n            \"size\": 0\n        },\n        \"channel_cache\": {\n            \"max_number\": 100,\n            \"enable_star_channel\": false,\n            \"max_length\": 1,\n            \"min_length\": 1\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{Import Admin API}}/{{db}}/_config",
+							"protocol": "http",
+							"host": [
+								"{{Import Admin API}}"
+							],
+							"path": [
+								"{{db}}",
+								"_config"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete Database",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Admin API}}/{{db}}/",
+					"protocol": "http",
+					"host": [
+						"{{Admin API}}"
+					],
+					"path": [
+						"{{db}}",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "password",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "Administrator",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Admin API",
+			"value": "localhost:4985"
+		},
+		{
+			"key": "Public API",
+			"value": "localhost:4984"
+		},
+		{
+			"key": "db",
+			"value": "beers"
+		},
+		{
+			"key": "Import Admin API",
+			"value": "localhost:14985"
+		}
+	]
+}

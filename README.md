@@ -28,3 +28,7 @@
 
 ### Legacy Config Upgrade
 1. `docker-compose up --detach --scale sg=0 --scale sg-import=0 --scale sg-legacy=1` will automatically upgrade the legacy Sync Gateway config inside `sg-legacy-config` and start up a single node.
+
+### Postman Collection For Demo
+
+Import the `demo.postman_collection.json` file into Postman.
