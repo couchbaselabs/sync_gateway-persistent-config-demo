@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  # Couchbase Server for Sync Gateway persistence
+  db:
+    image: couchbase/server:enterprise-7.0.2
+    ports:
+      - 8091-8097:8091-8097
+      - 11210:11210
+      - 11207:11207
+      - 18091-18097:18091-18097
+
+
+
+  # Couchbase Sync Gateway nodes to handle client traffic
+  sg:
+    image: couchbase/sync-gateway:3.0.0-beta02-enterprise
+    volumes:
+      - ./sg-config.json:/etc/sync_gateway/config.json:ro
+    depends_on:
+      - db
+    expose:
+      - "4984"
+      - "4985"
+    deploy:
+      replicas: 3
+
+  # Load balancer to route requests to sg containers
+  sg-lb:
+    image: nginx:1.21.3
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - sg
+    ports:
+      - "4984:4984"
+      - "4985:4985"
+
+
+
+  # Couchbase Sync Gateway import-only node(s) - Doesn't handle any client traffic
+  sg-import:
+    image: couchbase/sync-gateway:3.0.0-beta02-enterprise
+    volumes:
+      - ./sg-config-import.json:/etc/sync_gateway/config.json:ro
+    ports:
+      - "14985:4985"
+    deploy:
+      replicas: 0
+
+
+
+  # Couchbase Sync Gateway legacy config upgrade
+  sg-legacy:
+    image: couchbase/sync-gateway:3.0.0-beta02-enterprise
+    volumes:
+      # Mount the entire directory (with read/write) so we can backup the old config file
+      - ./sg-legacy-config:/etc/sync_gateway/
+    ports:
+      - "24985:4985"
+    deploy:
+      replicas: 0

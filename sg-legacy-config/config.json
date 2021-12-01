@@ -1,0 +1,173 @@
+{
+    "adminInterface": ":4985",
+    "databases":
+    {
+        "db1":
+        {
+            "server": "couchbases://db",
+            "username": "sgw-app",
+            "password": "hunter2",
+            "bucket": "bucket1",
+            "num_index_replicas": 0,
+            "allow_conflicts": false,
+            "bucket_op_timeout_ms": 5000,
+            "compact_interval_days": 90,
+            "delta_sync":
+            {
+                "enabled": true
+            },
+            "cache":
+            {
+                "channel_cache":
+                {
+                    "compact_high_watermark_pct": 98,
+                    "compact_low_watermark_pct": 90,
+                    "max_number": 1000,
+                    "max_length": 500,
+                    "min_length": 50
+                },
+                "rev_cache":
+                {
+                    "size": 1500
+                }
+            },
+            "enable_shared_bucket_access": true,
+            "import_filter": `function(doc){
+                if (doc.mobile) {
+                    return doc.mobile;
+                }
+            }`,
+            "import_docs": true,
+            "local_doc_expiry_secs": 3600,
+            "revs_limit": 50,
+            "sync": `function(doc, oldDoc) {
+                console.log("got doc through sync");
+
+                if (doc.published) {
+                    channel("public");
+                } else {
+                    requireUser(doc.owner);
+                }
+
+                channel(doc.channels);
+            }`
+        },
+        "db2":
+        {
+            "server": "couchbases://db",
+            "username": "sgw-app",
+            "password": "password",
+            "bucket": "bucket2",
+            "num_index_replicas": 0,
+            "allow_conflicts": false,
+            "bucket_op_timeout_ms": 1200,
+            "compact_interval_days": 30,
+            "delta_sync":
+            {
+                "enabled": true
+            },
+            "cache":
+            {
+                "channel_cache":
+                {
+                    "compact_high_watermark_pct": 95,
+                    "compact_low_watermark_pct": 80,
+                    "max_number": 20000,
+                    "max_length": 1000,
+                    "min_length": 50
+                },
+                "rev_cache":
+                {
+                    "size": 3000
+                }
+            },
+            "enable_shared_bucket_access": true,
+            "import_filter": `function(doc){
+                if (doc.mobile) {
+                    return doc.mobile;
+                }
+            }`,
+            "import_docs": true,
+            "local_doc_expiry_secs": 3600,
+            "revs_limit": 50,
+            "sync": `function(doc, oldDoc) {
+                console.log("got doc through sync");
+
+                if (doc.published) {
+                    channel("public");
+                } else {
+                    requireUser(doc.owner);
+                }
+
+                channel(doc.channels);
+            }`
+        },
+        "db3":
+        {
+            "server": "couchbases://db",
+            "username": "sgw-app",
+            "password": "password",
+            "bucket": "bucket3",
+            "num_index_replicas": 0,
+            "allow_conflicts": false,
+            "bucket_op_timeout_ms": 1200,
+            "compact_interval_days": 30,
+            "delta_sync":
+            {
+                "enabled": true
+            },
+            "cache":
+            {
+                "channel_cache":
+                {
+                    "compact_high_watermark_pct": 95,
+                    "compact_low_watermark_pct": 80,
+                    "max_number": 20000,
+                    "max_length": 1000,
+                    "min_length": 50
+                },
+                "rev_cache":
+                {
+                    "size": 3000
+                }
+            },
+            "enable_shared_bucket_access": true,
+            "import_filter": `function(doc){
+                if (doc.mobile) {
+                    return doc.mobile;
+                }
+            }`,
+            "import_docs": true,
+            "local_doc_expiry_secs": 3600,
+            "revs_limit": 50,
+            "sync": `function(doc, oldDoc) {
+                console.log("got doc through sync");
+
+                if (doc.published) {
+                    channel("public");
+                } else {
+                    requireUser(doc.owner);
+                }
+
+                channel(doc.channels);
+            }`
+        }
+    },
+    "logging":
+    {
+        "console":
+        {
+            "log_level": "debug",
+            "log_keys":
+            [
+                "HTTP",
+                "Import",
+                "CRUD",
+                "Cache"
+            ],
+            "color_enabled": true
+        }
+    },
+    "server_tls_skip_verify": true,
+    "config_upgrade_group_id": "legacy"
+}

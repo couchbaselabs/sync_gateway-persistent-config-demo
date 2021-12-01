@@ -1,0 +1,29 @@
+{
+    "bootstrap":
+    {
+        "group_id": "import",
+        "server": "couchbases://db",
+        "username": "sgw-app",
+        "password": "hunter2",
+        "server_tls_skip_verify": true
+    },
+    "api":
+    {
+        "admin_interface": ":4985"
+    },
+    "logging":
+    {
+        "console":
+        {
+            "log_level": "debug",
+            "log_keys":
+            [
+                "HTTP",
+                "Import",
+                "CRUD",
+                "Cache"
+            ],
+            "color_enabled": true
+        }
+    }
+}
