@@ -64,5 +64,5 @@ Import the `demo.postman_collection.json` file into Postman.
 
 ## Couchbase Connect 2021 presentation
 
-[![What's New in Sync Gateway Configuration and Administration - CBConnect21](.ytthumb2.png)](https://www.youtube.com/watch?v=N7EG9t68_2s)
+[![What's New in Sync Gateway Configuration and Administration - CBConnect21](.ytthumb.png)](https://www.youtube.com/watch?v=N7EG9t68_2s)
 
