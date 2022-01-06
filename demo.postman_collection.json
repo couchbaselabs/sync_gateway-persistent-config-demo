@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "1ade55b6-64c0-4181-8b90-745d0ec1ca49",
-		"name": "CB Connect 2021",
+		"name": "Sync Gateway Persistent Demo Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -175,6 +175,91 @@
 				}
 			]
 		},
+        {
+            "name": "sg-legacy",
+            "item": [
+                {
+                    "name": "Node Config (runtime)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://{{Legacy Admin API}}/_config?include_runtime=true",
+                            "protocol": "http",
+                            "host": [
+                                "{{Legacy Admin API}}"
+                            ],
+                            "path": [
+                                "_config"
+                            ],
+                            "query": [
+                                {
+                                    "key": "include_runtime",
+                                    "value": "true"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Legacy Database",
+                    "request": {
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"bucket\": \"beer-sample\",\n    \"num_index_replicas\": 0,\n    \"import_docs\": true\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://{{Legacy Admin API}}/{{db}}/",
+                            "protocol": "http",
+                            "host": [
+                                "{{Legacy Admin API}}"
+                            ],
+                            "path": [
+                                "{{db}}",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Database Config",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"cache\": {\n        \"rev_cache\": {\n            \"size\": 0\n        },\n        \"channel_cache\": {\n            \"max_number\": 100,\n            \"enable_star_channel\": false,\n            \"max_length\": 1,\n            \"min_length\": 1\n        }\n    }\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://{{Legacy Admin API}}/{{db}}/_config",
+                            "protocol": "http",
+                            "host": [
+                                "{{Legacy Admin API}}"
+                            ],
+                            "path": [
+                                "{{db}}",
+                                "_config"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
 		{
 			"name": "Delete Database",
 			"request": {
@@ -255,6 +340,10 @@
 		{
 			"key": "Import Admin API",
 			"value": "localhost:14985"
-		}
+		},
+        {
+            "key": "Legacy Admin API",
+            "value": "localhost:24985"
+        }
 	]
 }
