@@ -1,7 +1,4 @@
 # What's new in Sync Gateway Configuration & Administration
-## A Couchbase Connect 2021 presentation
-
-[![What's New in Sync Gateway Configuration and Administration - CBConnect21](.ytthumb.gif)](https://www.youtube.com/watch?v=N7EG9t68_2s)
 
 ## Setup
 
@@ -29,6 +26,7 @@ docker-compose logs --follow
 curl -X PUT http://Administrator:password@localhost:4985/beers/ -H 'Content-Type: application/json' -d '{"bucket":"beer-sample","num_index_replicas": 0,"import_docs":false}'
 ```
 4. Start 7 more Sync Gateway nodes, for a total of 10. All picking up the beers database automatically on startup.
+**NOTE: Depending on the resources available on your laptop, you may have to scale down the number of Sync Gateways. Consider starting atleast 2 additional ones for a total of 5**
 ```
 docker-compose up --detach --scale sg=10
 ```
@@ -63,3 +61,8 @@ docker-compose up --detach --scale sg=0 --scale sg-import=0 --scale sg-legacy=1
 
 ### Postman Collection For Demo
 Import the `demo.postman_collection.json` file into Postman.
+
+## Couchbase Connect 2021 presentation
+
+[![What's New in Sync Gateway Configuration and Administration - CBConnect21](.ytthumb2.png)](https://www.youtube.com/watch?v=N7EG9t68_2s)
+
